@@ -44,7 +44,7 @@
           </div>
           <q-card-actions align="right">
             <q-btn flat label="Cancelar" color="primary" v-close-popup />
-            <q-btn flat label="Añadir" color="primary" v-close-popup />
+            <q-btn flat label="Añadir" color="primary" @click="save" v-close-popup />
           </q-card-actions>
        </q-card>
      </q-dialog>
@@ -63,97 +63,63 @@ export default {
           name: 'name',
           label: 'Nombre',
           align: 'left',
-          field: 'name'
+          field: 'title'
         },
         {
-          name: 'rating',
+          name: 'albumId',
           label: 'Calificación',
           align: 'left',
-          field: 'rating'
+          field: 'albumId'
         },
         {
           name: 'category',
           label: 'Categoría',
           align: 'left',
-          field: 'category'
+          field: 'title'
         },
         {
-          name: 'description',
+          name: 'title',
           label: 'Descripción',
           align: 'left',
-          field: 'description'
+          field: 'title'
         },
         {
-          name: 'cover',
+          name: 'thumbnailUrl',
           label: 'Carátula',
           align: 'left',
-          field: 'cover'
+          field: 'thumbnailUrl'
         },
         {
-          name: 'cover_page',
+          name: 'url',
           label: 'Portada',
           align: 'left',
-          field: 'cover_page'
+          field: 'url'
         }
       ],
-      data: [
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
-        },
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
-        },
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
-        },
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
-        },
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
-        },
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
-        },
-        {
-          name: 'Frozen',
-          rating: 4,
-          category: 'Ficción',
-          description: 'Disney',
-          cover: 'https://url.image.com/image.jpeg1',
-          cover_page: 'https://url.image.com/image.jpeg1'
+      data: []
+    }
+  },
+  mounted () {
+    this.getMovies()
+  },
+  methods: {
+    getMovies () {
+      this.$q.loading.show()
+      this.$api.get('photos').then(res => {
+        this.data = res.data
+        this.$q.loading.hide()
+      })
+    },
+    save () {
+      // No guarda realmente pero así sería con una api real
+      this.$api.post('photos', this.form).then(res => {
+        if (res) {
+          this.$q.notify({
+            type: 'positive',
+            message: 'Listo'
+          })
         }
-      ]
+      })
     }
   }
 }

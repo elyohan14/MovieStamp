@@ -94,6 +94,7 @@ export default {
         width: '5px',
         opacity: 0.75
       },
+      // No encontré una api chévere de películas para cargar datos distintos a éstos
       movies: [
         {
           cover: 'https://images4.alphacoders.com/587/587508.png',
